@@ -1,4 +1,5 @@
 #![doc = include_str!("../README.md")]
+#![warn(missing_docs)]
 
 use iced::{
     Alignment, Border, Color, Font, Length, Padding, Shadow, Task,
@@ -121,7 +122,7 @@ fn update(app: &mut State, message: Message) -> Task<Message> {
 
                 match text.parse::<f32>() {
                     Ok(v) => {
-                        if v >= 0.01 && v <= 10_000.0 {
+                        if (0.01..=10000.0).contains(&v) {
                             Task::perform(
                                 async move {
                                     let packet = OscPacket::Message(OscMessage {
@@ -262,9 +263,9 @@ fn view(app: &State) -> Column<'_, Message, AmoledTheme> {
         .align_x(Alignment::Center)
         .width(Length::Fill),
     }
-    .into()
 }
 
+/// This asynchronous function attempts to create a UDP socket, bind it to the local address, and connect it to the VRChat OSC listener. It returns a `Message` indicating the result of the connection attempt.
 async fn connect() -> Message {
     if let Ok(socket) = UdpSocket::bind(LOCAL_ADDR)
         .inspect_err(|e| tracing::error!("Failed to bind UDP socket: {}", e))
@@ -281,10 +282,15 @@ async fn connect() -> Message {
     }
 }
 
+/// The [`AmoledTheme`] struct defines a custom theme for the application, providing styles for various UI components based on the system theme (light or dark). It implements the necessary traits to be used as a theme in the Iced application.
 struct AmoledTheme {
+    /// The current mode of the theme, which can be light or dark.
     mode: theme::Mode,
+    /// The base style for the theme, defining background and text colors.
     style: theme::Style,
+    /// The color palette for the theme, providing specific colors for different UI elements.
     palette: theme::Palette,
+    /// The name of the theme, used for display purposes.
     name: &'static str,
 }
 
