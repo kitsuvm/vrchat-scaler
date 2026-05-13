@@ -1,0 +1,25 @@
+[package]
+name = "vrchat-scaler"
+version = "0.1.0"
+edition = "2024"
+description = "A simple VRChat OSC scaler built with Rust and Iced."
+license = "MIT"
+repository = "https://github.com/KitsuVM/vrchat-scaler"
+authors = ["Kitsu/VM <nashiradeer@gmail.com>"]
+publish = false
+rust-version = "1.95.0"
+readme = "README.md"
+keywords = ["vrchat", "osc", "scaler"]
+
+[dependencies]
+iced = { default-features = false, features = [
+    "thread-pool",
+    "wayland",
+    "tiny-skia",
+    "linux-theme-detection",
+    "crisp",
+    "x11",
+], version = "0.14.0" }
+rosc = "0.11.4"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
