@@ -1,5 +1,6 @@
 #![doc = include_str!("../README.md")]
 #![warn(missing_docs)]
+#![windows_subsystem = "windows"]
 
 use iced::{
     Alignment, Border, Color, Font, Length, Padding, Shadow, Task,
